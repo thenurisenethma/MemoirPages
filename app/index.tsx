@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "expo-router"
 import {
   View,
@@ -10,6 +10,10 @@ import {
   Alert
 } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"
+import { getMemories, deleteMemory } from "./store/memoryStore"
+import { useFocusEffect } from "expo-router"
+import { useCallback } from "react"
+
 
 // Screen dimensions
 const { width } = Dimensions.get("window")
@@ -22,37 +26,38 @@ interface Memory {
   image?: string
 }
 
-// Initial dummy memories for development
-const initialMemories: Memory[] = [
-  {
-    id: "1",
-    title: "My First Memory",
-    content: "Today I started MemoirPages 💜",
-    date: "2026-02-09",
-  },
-  {
-    id: "2",
-    title: "Cafe Visit Reflection",
-    content: "Had a wonderful coffee and wrote some thoughts",
-    date: "2026-02-08",
-  },
-]
-
 const Dashboard = () => {
-  const [memories, setMemories] = useState<Memory[]>(initialMemories)
-  const router = useRouter()
+  const [memories, setMemories] = useState<Memory[]>([])
+  
+  const handleDelete = async (id: string) => {
+  try {
+    await deleteMemory(id)
+    const data = await getMemories()
+    setMemories(data)
+  } catch (e) {
+    console.error("Failed to delete memory", e)
+  }
+}
 
-  // More button actions
+
+  const router = useRouter()
+  useFocusEffect(
+  useCallback(() => {
+    const loadMemories = async () => {
+      const data = await getMemories()
+      setMemories(data)
+    }
+    loadMemories()
+  }, [])
+)
+
+
   const handleMore = (id: string) => {
     Alert.alert("Options", "Choose an action", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Edit",
-        onPress: () => router.push({
-        pathname: "/edit/[id]",
-        params: { id: id },
-})
-,
+        onPress: () => router.push({ pathname: "/edit/[id]", params: { id } }),
       },
       {
         text: "Delete",
@@ -61,16 +66,11 @@ const Dashboard = () => {
       },
     ])
   }
-
-  const handleDelete = (id: string) => {
-    const filtered = memories.filter((m) => m.id !== id)
-    setMemories(filtered)
-  }
-
+  
   return (
-    <View className="flex-1 bg-cream p-4">
+    <View>
       {/* Header / Logo */}
-      <View className="flex-row items-center mb-6" style={{ alignItems: "center" }}>
+      {/* <View className="flex-row items-center mb-6" style={{ alignItems: "center" }}>
         <Image
           source={require("../assets/logo.png")}
           style={{
@@ -89,16 +89,47 @@ const Dashboard = () => {
         >
           MemoirPages
         </Text>
-      </View>
+      </View> */}
 
       {/* Diary Entries List */}
       {memories.length === 0 ? (
-        <View
-          style={{ backgroundColor: "#efebfa" }}
-          className="flex-1 items-center justify-center p-4"
-        >
-          <Text className="text-gray-500 text-lg">No diary entries yet 🪶</Text>
-        </View>
+    <View
+    style={{
+      flex: 1,
+      justifyContent: "center", // center texts vertically
+      alignItems: "center",     // center everything horizontally
+      backgroundColor: "#efebfa",
+      paddingHorizontal: 20,
+    }}
+  >
+    {/* Big Label */}
+    <Text
+      style={{
+        fontSize: width * 0.09,
+        fontWeight: "700",
+        color: "#B57EDC",
+        marginBottom: 5,
+        textAlign: "center",
+      }}
+    >
+      No Memories
+    </Text>
+
+    {/* Subtitle */}
+    <Text
+      style={{
+        fontSize: width * 0.045,
+        color: "#6B7280",
+        textAlign: "center",
+        marginBottom: 0, // space between subtitle and image
+        maxWidth: "80%",
+      }}
+    >
+      Start creating your memories today! 🪶
+    </Text>
+
+   
+  </View>
       ) : (
         <FlatList
   data={memories}
@@ -153,9 +184,9 @@ const Dashboard = () => {
           padding: 4,
         }}
         onPress={() => handleMore(item.id)}
-      >
-        <Text style={{ fontSize: width * 0.06 }}>⋯</Text>
-      </TouchableOpacity>
+      >  <MaterialIcons name="more-vert" size={24} color="#6B7280" />    
+</TouchableOpacity>
+
     </View>
   )}
 />
