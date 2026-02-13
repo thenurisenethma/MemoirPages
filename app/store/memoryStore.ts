@@ -35,8 +35,8 @@
 // const notifySubscribers = () => {
 //   subscribers.forEach((cb) => cb(getMemories()))
 // }
-
 import { db } from "../../firebaseConfig"
+import { auth } from "../../firebaseConfig"
 import {
   collection,
   getDocs,
@@ -44,6 +44,8 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  query,
+  where
 } from "firebase/firestore"
 
 export interface Memory {
@@ -52,12 +54,15 @@ export interface Memory {
   content: string
   date: string
   image?: string
+  uid?: string
 }
 
-const memoriesRef = collection(db, "memories")
-
 export const getMemories = async (): Promise<Memory[]> => {
-  const snapshot = await getDocs(memoriesRef)
+  const user = auth.currentUser
+  if (!user) return []
+
+  const q = query(collection(db, "memories"), where("uid", "==", user.uid))
+  const snapshot = await getDocs(q)
   return snapshot.docs.map((d) => ({
     id: d.id,
     ...(d.data() as Omit<Memory, "id">),
@@ -65,13 +70,12 @@ export const getMemories = async (): Promise<Memory[]> => {
 }
 
 export const addMemory = async (memory: Omit<Memory, "id">) => {
-  await addDoc(memoriesRef, memory)
+  const user = auth.currentUser
+  if (!user) throw new Error("User not logged in")
+  await addDoc(collection(db, "memories"), { ...memory, uid: user.uid })
 }
 
-export const updateMemory = async (
-  id: string,
-  updated: Partial<Memory>
-) => {
+export const updateMemory = async (id: string, updated: Partial<Memory>) => {
   const ref = doc(db, "memories", id)
   await updateDoc(ref, updated)
 }

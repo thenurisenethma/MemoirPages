@@ -13,6 +13,11 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { getMemories, deleteMemory } from "./store/memoryStore"
 import { useFocusEffect } from "expo-router"
 import { useCallback } from "react"
+import { auth } from "../firebaseConfig"
+import { onAuthStateChanged } from "firebase/auth"
+import { ActivityIndicator } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { signOut } from "firebase/auth"
 
 
 // Screen dimensions
@@ -37,19 +42,42 @@ const Dashboard = () => {
   } catch (e) {
     console.error("Failed to delete memory", e)
   }
+  }
+ const handleLogout = async () => {
+  await signOut(auth)
+  router.replace("/login")
 }
 
-
   const router = useRouter()
-  useFocusEffect(
+
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.replace("/login")
+      }
+    })
+
+    return unsubscribe
+  }, [])
+
+  if (!auth.currentUser) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
+
+useFocusEffect(
   useCallback(() => {
     const loadMemories = async () => {
-      const data = await getMemories()
-      setMemories(data)
+      const data = await getMemories();
+      setMemories(data);
     }
-    loadMemories()
+    loadMemories();
   }, [])
-)
+);
 
 
   const handleMore = (id: string) => {
@@ -68,8 +96,23 @@ const Dashboard = () => {
   }
   
   return (
+      <SafeAreaView className="flex-1 bg-cream">
+
     <View>
       {/* Header / Logo */}
+      <View
+  style={{
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  }}
+>
+  <TouchableOpacity onPress={handleLogout}>
+    <MaterialIcons name="logout" size={24} color="#B57EDC" />
+  </TouchableOpacity>
+</View>
+
       {/* <View className="flex-row items-center mb-6" style={{ alignItems: "center" }}>
         <Image
           source={require("../assets/logo.png")}
@@ -103,6 +146,7 @@ const Dashboard = () => {
     }}
   >
     {/* Big Label */}
+    
     <Text
       style={{
         fontSize: width * 0.09,
@@ -212,6 +256,8 @@ const Dashboard = () => {
         </TouchableOpacity>
       </View>
     </View>
+    </SafeAreaView>
+
   )
 }
 

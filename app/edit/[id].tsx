@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import { View, Text, TextInput, TouchableOpacity, Dimensions, Alert } from "react-native"
 import { getMemories, updateMemory } from "../store/memoryStore"
 import { useRouter, useLocalSearchParams } from "expo-router"
+import { ActivityIndicator } from "react-native"
+import { auth } from "../../firebaseConfig"
+import { onAuthStateChanged } from "firebase/auth"
 
 const { width } = Dimensions.get("window")
 
@@ -14,6 +17,25 @@ interface Memory {
 
 const EditMemory = () => {
   const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.replace("/login")
+      }
+    })
+
+    return unsubscribe
+  }, [])
+
+  if (!auth.currentUser) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
+
   const params = useLocalSearchParams<{ id: string }>()
   const id = params.id
 
@@ -21,16 +43,26 @@ const EditMemory = () => {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
 
-  useEffect(() => {
-    if (!id) return
-    const mems = getMemories()
-    const m = mems.find((m) => m.id === id)
-    if (m) {
-      setMemory(m)
-      setTitle(m.title)
-      setContent(m.content)
+useEffect(() => {
+  if (!id) return;
+
+  const loadMemory = async () => {
+    try {
+      const mems = await getMemories(); 
+      const m = mems.find((m) => m.id === id); 
+      if (m) {
+        setMemory(m);
+        setTitle(m.title);
+        setContent(m.content);
+      }
+    } catch (e) {
+      console.error("Failed to load memory", e);
     }
-  }, [id])
+  };
+
+  loadMemory();
+}, [id]);
+
 
   const handleSave = () => {
     if (!title.trim() || !content.trim()) {
