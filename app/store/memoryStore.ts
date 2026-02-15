@@ -34,9 +34,8 @@
 
 // const notifySubscribers = () => {
 //   subscribers.forEach((cb) => cb(getMemories()))
-// }
-import { db } from "../../firebaseConfig"
-import { auth } from "../../firebaseConfig"
+// }// store/memoryStore.ts
+import { db, auth } from "../../firebaseConfig"
 import {
   collection,
   getDocs,
@@ -49,37 +48,56 @@ import {
 } from "firebase/firestore"
 
 export interface Memory {
-  id: string
+  id: string         
   title: string
   content: string
   date: string
   image?: string
-  uid?: string
+  userId?: string
 }
 
+
+// Fetch all memories for the logged-in user
+// memoryStore.ts
 export const getMemories = async (): Promise<Memory[]> => {
   const user = auth.currentUser
   if (!user) return []
 
-  const q = query(collection(db, "memories"), where("uid", "==", user.uid))
+  const q = query(collection(db, "memories"), where("userId", "==", user.uid))
   const snapshot = await getDocs(q)
-  return snapshot.docs.map((d) => ({
-    id: d.id,
-    ...(d.data() as Omit<Memory, "id">),
-  }))
+
+  return snapshot.docs.map((d) => {
+    const data = d.data() as Omit<Memory, "id">
+    return {
+      id: d.id,           // always defined
+      title: data.title,
+      content: data.content,
+      date: data.date,
+      image: data.image,
+      userId: data.userId,
+    }
+  })
 }
 
+
+// Add a new memory
 export const addMemory = async (memory: Omit<Memory, "id">) => {
   const user = auth.currentUser
   if (!user) throw new Error("User not logged in")
-  await addDoc(collection(db, "memories"), { ...memory, uid: user.uid })
+
+  await addDoc(collection(db, "memories"), {
+    ...memory,
+    userId: user.uid,   // store userId for rules
+  })
 }
 
+// Update a memory
 export const updateMemory = async (id: string, updated: Partial<Memory>) => {
   const ref = doc(db, "memories", id)
   await updateDoc(ref, updated)
 }
 
+// Delete a memory
 export const deleteMemory = async (id: string) => {
   const ref = doc(db, "memories", id)
   await deleteDoc(ref)

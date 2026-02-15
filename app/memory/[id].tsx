@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react"
 import { View, Text, Dimensions, TouchableOpacity, Alert, Image, ScrollView } from "react-native"
 import { useRouter, useLocalSearchParams } from "expo-router"
 import { getMemories, deleteMemory } from "../store/memoryStore"
+import { Memory } from "../store/memoryStore"   
 
 const { width } = Dimensions.get("window")
 
-interface Memory {
-  id: string
-  title: string
-  content: string
-  date: string
-  image?: string
-}
+
 
 const MemoryView = () => {
   const router = useRouter()

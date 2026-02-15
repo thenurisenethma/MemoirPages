@@ -33,7 +33,8 @@ interface Memory {
 
 const Dashboard = () => {
   const [memories, setMemories] = useState<Memory[]>([])
-  
+  console.log("Current user UID:", auth.currentUser?.uid);
+
   const handleDelete = async (id: string) => {
   try {
     await deleteMemory(id)
@@ -98,22 +99,21 @@ useFocusEffect(
   return (
       <SafeAreaView className="flex-1 bg-cream">
 
-    <View>
-      {/* Header / Logo */}
+   
       <View
-  style={{
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    paddingHorizontal: 20,
-    paddingTop: 10,
-  }}
->
+      style={{
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        paddingHorizontal: 20,
+        paddingTop: 10,
+      }}
+    >
   <TouchableOpacity onPress={handleLogout}>
     <MaterialIcons name="logout" size={24} color="#B57EDC" />
   </TouchableOpacity>
 </View>
 
-      {/* <View className="flex-row items-center mb-6" style={{ alignItems: "center" }}>
+      <View className="flex-row items-center mb-6" style={{ alignItems: "center" }}>
         <Image
           source={require("../assets/logo.png")}
           style={{
@@ -132,7 +132,7 @@ useFocusEffect(
         >
           MemoirPages
         </Text>
-      </View> */}
+      </View>
 
       {/* Diary Entries List */}
       {memories.length === 0 ? (
@@ -146,7 +146,7 @@ useFocusEffect(
     }}
   >
     {/* Big Label */}
-    
+
     <Text
       style={{
         fontSize: width * 0.09,
@@ -222,14 +222,16 @@ useFocusEffect(
       {/* More Button */}
       <TouchableOpacity
         style={{
-          position: "absolute",
-          top: width * 0.04,
-          right: width * 0.04,
-          padding: 4,
-        }}
-        onPress={() => handleMore(item.id)}
-      >  <MaterialIcons name="more-vert" size={24} color="#6B7280" />    
+        position: "absolute",
+        top: width * 0.04,
+        right: width * 0.04,
+        padding: 4,
+      }}
+  onPress={() => handleMore(item.id)}
+>
+  <MaterialIcons name="more-vert" size={24} color="#6B7280" />
 </TouchableOpacity>
+
 
     </View>
   )}
@@ -238,7 +240,7 @@ useFocusEffect(
       )}
 
       {/* Floating Add Button */}
-      <View style={{ position: "absolute", bottom: 20, right: 20, zIndex: 10 }}>
+      <View style={{ position: "absolute", bottom: 40, right: 20, zIndex: 10 }}>
         <TouchableOpacity
           style={{
             backgroundColor: "#B57EDC",
@@ -255,7 +257,6 @@ useFocusEffect(
           <MaterialIcons name="add" size={width * 0.07} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
     </SafeAreaView>
 
   )

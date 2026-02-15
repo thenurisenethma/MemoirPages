@@ -3,5 +3,5 @@ export interface Memory {
   title: string
   content: string
   date: string
-  image?: string
+  userId: string
 }

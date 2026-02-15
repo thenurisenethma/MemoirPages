@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router"
 import { addMemory } from "./store/memoryStore"
 import { Memory } from "./types/memory"
+import { auth } from "../firebaseConfig"
 
 const { width } = Dimensions.get("window")
 
@@ -19,19 +20,30 @@ const AddMemory = () => {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
 
-  const handleSave = () => {
-    if (!title || !content) return
+ const handleSave = async () => {
+  if (!title.trim() || !content.trim()) return
 
-    const newMemory: Memory = {
-      id: Date.now().toString(),
-      title,
-      content,
-      date: new Date().toISOString().split("T")[0],
-    }
-
-    addMemory(newMemory)
-    router.back()
+  const user = auth.currentUser
+  if (!user) {
+    console.log("No logged in user")
+    return
   }
+
+  const newMemory = {
+    title,
+    content,
+    date: new Date().toISOString().split("T")[0],
+  }
+
+  try {
+    await addMemory(newMemory) 
+    router.back()
+  } catch (e) {
+    console.error("Failed to save memory", e)
+  }
+}
+
+
 
   return (
     <ScrollView
