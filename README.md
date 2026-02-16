@@ -1,8 +1,8 @@
-MemoirPages 📖
+**MemoirPages** 📖
 
 MemoirPages is a personal diary app built with React Native, Expo, and Firebase, allowing users to capture memories, add titles and content, and view a beautiful dashboard of all their entries.
 
-✨ Features
+✨ **Features**
 
 📝 Add new memories with optional photos
 
@@ -12,11 +12,9 @@ MemoirPages is a personal diary app built with React Native, Expo, and Firebase,
 
 🔐 User authentication using Firebase Auth
 
-🌐 Images stored as URI links in Firestore (no paid Storage needed)
-
 🎨 Clean, minimal, and user-friendly interface
 
-🛠️ Tech Stack
+🛠️ **Tech Stack**
 
 Frontend: React Native, Expo
 
@@ -28,11 +26,11 @@ Camera & Media: Expo Camera, Expo Media Library
 
 State Management: Local React state + memoryStore module
 
-⚡ Installation & Setup
+⚡ **Installation & Setup**
 
 Clone the repository
 
-git clone https://github.com/yourusername/MemoirPages.git
+git clone https://github.com/thenurisenethma/MemoirPages.git
 cd MemoirPages
 
 
@@ -72,7 +70,7 @@ Open in Expo Go on your device or simulator
  ├─ /types           # Memory type definitions
  └─ package.json
 
-📝 Usage
+📝 **Usage**
 
 Open the app and log in / sign up
 
@@ -86,7 +84,7 @@ Tap Save Memory → memory appears on the dashboard
 
 Tap a memory → edit or delete
 
-🤝 Contributing
+🤝 **Contributing**
 
 Open an issue or submit a pull request
 
