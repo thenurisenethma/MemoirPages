@@ -12,6 +12,9 @@ import { useRouter } from "expo-router"
 import { addMemory } from "./store/memoryStore"
 import { Memory } from "./types/memory"
 import { auth } from "../firebaseConfig"
+import { useLocalSearchParams } from "expo-router"
+import { useEffect } from "react"
+
 
 const { width } = Dimensions.get("window")
 
@@ -19,29 +22,39 @@ const AddMemory = () => {
   const router = useRouter()
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  const params = useLocalSearchParams<{ image?: string }>()
+  const [image, setImage] = useState<string | null>(null)
 
- const handleSave = async () => {
-  if (!title.trim() || !content.trim()) return
+  useEffect(() => {
+  if (params.image) {
+    setImage(params.image)
+  }
+}, [params.image])
 
-  const user = auth.currentUser
+const handleSave = async () => {
+  if (!title.trim() || !content.trim()) return;
+
+  const user = auth.currentUser;
   if (!user) {
-    console.log("No logged in user")
-    return
+    console.log("No logged in user");
+    return;
   }
 
   const newMemory = {
-    title,
-    content,
-    date: new Date().toISOString().split("T")[0],
-  }
+  title,
+  content,
+  date: new Date().toISOString().split("T")[0],
+  image: image || undefined,
+}
 
   try {
-    await addMemory(newMemory) 
-    router.back()
+    await addMemory(newMemory);
+    router.back();
   } catch (e) {
-    console.error("Failed to save memory", e)
+    console.error("Failed to save memory", e);
   }
-}
+};
+
 
 
 
@@ -61,30 +74,35 @@ const AddMemory = () => {
       >
         New Memory
       </Text>
-{/* Optional Image Placeholder */}
-<Text style={{ color: "#6B7280", fontSize: width * 0.04 }}>
-          Add an image
-        </Text>
-      <View
+{/*  Image Placeholder */}
+      <TouchableOpacity
+        onPress={() => router.push("../camera-test")} 
         style={{
-          width: "10%",
-          height: "10%",
-          borderRadius: 50,
+          width: 80,
+          height: 80,
+          borderRadius: 40,
           backgroundColor: "#cfc1f7",
           marginBottom: 20,
           justifyContent: "center",
           alignItems: "center",
-          borderWidth: 1,
-          borderColor: "#ddd",
         }}
       >
-                  {/* <MaterialIcons name="add" size={width * 0.07} color="white" /> */}
+        <Text style={{ color: "white", fontSize: 24 }}>+</Text>
+      </TouchableOpacity>
+      {image && (
+      <Image
+        source={{ uri: image }}
+        style={{
+          width: "100%",
+          height: 200,
+          borderRadius: 15,
+          marginBottom: 20,
+        }}
+      />
+    )}
 
-        <Text style={{ color: "#f8f9f9", fontSize: width * 0.04 }}>
-          +
-        </Text>
-      </View>
-      {/* Title Input */}
+
+      {/* Title  */}
       <TextInput
         placeholder="Title"
         value={title}
@@ -103,7 +121,7 @@ const AddMemory = () => {
         }}
       />
 
-      {/* Content Input */}
+      {/* Content  */}
       <TextInput
         placeholder="Write your memory..."
         value={content}
