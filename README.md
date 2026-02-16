@@ -58,7 +58,7 @@ npx expo start
 
 Open in Expo Go on your device or simulator
 
-📂 Folder Structure
+# 📂 Folder Structure
 /MemoirPages
  ├─ /assets          # Images, icons, splash screen
  ├─ /app             # Screens & routing
