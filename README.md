@@ -33,7 +33,7 @@ Camera access and memory
 ## 📸 Screenshots
 
 ### 🏠 Home Screen
-![Home Screen](../screenshots/homepage.jpeg)
+![Home Screen](./screenshots/homepage.jpeg)
 
 ### ✏️ Add photo (camera access) and memory
 ![Edit Screen](./screenshots/camera.jpeg)
@@ -42,16 +42,16 @@ Camera access and memory
 ![Add Screen](./screenshots/addmemory.jpeg)
 
 ### 🔐 Login Screen
-![Login Screen](./screenshots/login.png)
+![Login Screen](./screenshots/login.jpeg)
 
 ### 🔐 Signup Screen
-![Signup Screen](./screenshots/signup.png)
+![Signup Screen](./screenshots/signup.jpeg)
 
 ### ✏️ Edit Screen
-![Edit Screen](./screenshots/edit.png)
+![Edit Screen](./screenshots/edit.jpeg)
 
 
-![Laning Screen](./screenshots/landingpage.png)
+![Landing Screen](./screenshots/landingpage.jpeg)
 
 # ⚡ **Installation & Setup**
 
