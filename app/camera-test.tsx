@@ -1,7 +1,8 @@
-import { View, TouchableOpacity, Text } from "react-native"
+import { View, TouchableOpacity, Text,Dimensions } from "react-native"
 import { CameraView, useCameraPermissions } from "expo-camera"
 import { useRef } from "react"
 import { useRouter } from "expo-router"
+const { width } = Dimensions.get("window")
 
 export default function CameraScreen() {
   const [permission, requestPermission] = useCameraPermissions()
@@ -35,6 +36,17 @@ export default function CameraScreen() {
       <CameraView ref={cameraRef} style={{ flex: 1 }} />
       <TouchableOpacity
         onPress={takePhoto}
+         style={{
+          backgroundColor: "#B57EDC",
+          paddingVertical: width * 0.04,
+          borderRadius: 20,
+          alignItems: "center",
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.25,
+          shadowRadius: 6,
+          elevation: 5,
+        }}
         className="absolute bottom-20 self-center bg-white px-6 py-4 rounded-full"
       >
         <Text>Take Photo</Text>

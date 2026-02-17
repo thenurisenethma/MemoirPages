@@ -4,17 +4,14 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-// Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCyJVqLwySbGZ3MbBEQv81aeIwr5jrnciI",
-  authDomain: "memoirpages.firebaseapp.com",
-  projectId: "memoirpages",
-  storageBucket: "memoirpages.appspot.com", 
-  messagingSenderId: "167162893930",
-  appId: "1:167162893930:web:24277802076cb98d189c13",
-  measurementId: "G-MB3D0QX4CS",
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
-
 
 // Initialize Firebase App
 export const app = initializeApp(firebaseConfig);

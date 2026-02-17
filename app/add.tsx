@@ -75,6 +75,8 @@ const handleSave = async () => {
         New Memory
       </Text>
 {/*  Image Placeholder */}
+      <Text style={{ color: "#B57EDC", fontSize: 24 }}>Take Photo</Text>
+
       <TouchableOpacity
         onPress={() => router.push("../camera-test")} 
         style={{
