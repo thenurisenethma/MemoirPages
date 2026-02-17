@@ -39,19 +39,19 @@ Camera access and memory
 ![Edit Screen](./screenshots/camera.jpeg)
 
 ### ✏️ Add memory
-![Edit Screen](./screenshots/addmemory.jpeg)
+![Add Screen](./screenshots/addmemory.jpeg)
 
 ### 🔐 Login Screen
 ![Login Screen](./screenshots/login.png)
 
 ### 🔐 Signup Screen
-![Login Screen](./screenshots/signup.png)
+![Signup Screen](./screenshots/signup.png)
 
 ### ✏️ Edit Screen
-![Login Screen](./screenshots/edit.png)
+![Edit Screen](./screenshots/edit.png)
 
 
-![Login Screen](./screenshots/landingpage.png)
+![Laning Screen](./screenshots/landingpage.png)
 
 # ⚡ **Installation & Setup**
 
