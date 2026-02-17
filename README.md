@@ -33,7 +33,7 @@ Camera access and memory
 ## 📸 Screenshots
 
 ### 🏠 Home Screen
-![Home Screen](./screenshots/homepage.jpeg)
+![Home Screen](../screenshots/homepage.jpeg)
 
 ### ✏️ Add photo (camera access) and memory
 ![Edit Screen](./screenshots/camera.jpeg)
