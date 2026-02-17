@@ -1,50 +1,120 @@
-# Welcome to your Expo app 👋
+# MemoirPages  📖
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MemoirPages is a personal diary app built with React Native, Expo, and Firebase, allowing users to capture memories, add titles and content, and view a beautiful dashboard of all their entries.
 
-## Get started
+# ✨ **Features**
 
-1. Install dependencies
+📝 Add new memories 
 
-   ```bash
-   npm install
-   ```
+📸 Camera access to add photos
 
-2. Start the app
+📅 View all saved memories in a dashboard
 
-   ```bash
-   npx expo start
-   ```
+✏️ Edit or delete memories
 
-In the output, you'll find options to open the app in a
+🔐 User authentication using Firebase Auth
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🎨 Clean, minimal, and user-friendly interface
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+# 🛠️ **Tech Stack**
 
-## Get a fresh project
+Frontend: React Native, Expo
 
-When you're ready, run:
+Routing: Expo Router
 
-```bash
-npm run reset-project
-```
+Backend / Database: Firebase Firestore, Firebase Auth
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Camera & Media: Expo Camera, Expo Media Library
 
-## Learn more
+State Management: Local React state + memoryStore module
 
-To learn more about developing your project with Expo, look at the following resources:
+# ⚡ **Screenshots** 
+Camera access and memory 
+## 📸 Screenshots
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 🏠 Home Screen
+![Home Screen](../screenshots/homepage.jpeg)
 
-## Join the community
+### ✏️ Add photo (camera access) and memory
+![Edit Screen](./screenshots/camera.jpeg)
 
-Join our community of developers creating universal apps.
+### ✏️ Add memory
+![Add Screen](./screenshots/addmemory.jpeg)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 🔐 Login Screen
+![Login Screen](./screenshots/login.png)
+
+### 🔐 Signup Screen
+![Signup Screen](./screenshots/signup.png)
+
+### ✏️ Edit Screen
+![Edit Screen](./screenshots/edit.png)
+
+
+![Laning Screen](./screenshots/landingpage.png)
+
+# ⚡ **Installation & Setup**
+
+Clone the repository
+
+git clone https://github.com/thenurisenethma/MemoirPages.git
+cd MemoirPages
+
+
+Install dependencies
+
+npm install
+# or
+yarn install
+
+
+Firebase Setup
+
+Create a Firebase project: Firebase Console
+
+Enable Authentication → Email/Password
+
+Enable Firestore Database
+
+Copy your Firebase config to firebaseConfig.ts
+
+Run the app
+
+npx expo start
+
+
+Open in Expo Go on your device or simulator
+
+# 📂 Folder Structure
+/MemoirPages
+ ├─ /assets          # Images, icons, splash screen
+ ├─ /app             # Screens & routing
+ │   ├─ add.tsx      # Add Memory screen
+ │   ├─ dashboard.tsx# Dashboard screen
+ │   ├─ camera-test.tsx # Camera screen
+ ├─ /firebaseConfig.ts
+ ├─ /store           # memoryStore.ts
+ ├─ /types           # Memory type definitions
+ └─ package.json
+
+# 📝 **Usage**
+
+Open the app and log in / sign up
+
+Press the + button to add a memory
+
+Take a photo or skip it
+
+Add a title and content
+
+Tap Save Memory → memory appears on the dashboard
+
+Tap a memory → edit or delete
+
+# 🤝 **Contributing**
+
+Open an issue or submit a pull request
+
+Suggestions for UI/UX improvements, new features, or bug fixes are welcome
+
+Make sure your code follows the existing React Native + Expo structure

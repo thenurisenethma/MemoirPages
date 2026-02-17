@@ -88,7 +88,8 @@ const handleSave = async () => {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
+      ><Text style={{ color: "black", fontSize: 24 }}>Add Photo</Text>
+
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
       </TouchableOpacity>
       {image && (
