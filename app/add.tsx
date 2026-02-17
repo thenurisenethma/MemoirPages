@@ -72,7 +72,6 @@ const handleSave = async () => {
           marginBottom: 20,
         }}
       >
-        New Memory
       </Text>
 {/*  Image Placeholder */}
       <Text style={{ color: "#B57EDC", fontSize: 24 }}>Take Photo</Text>
@@ -83,12 +82,12 @@ const handleSave = async () => {
           width: 80,
           height: 80,
           borderRadius: 40,
-          backgroundColor: "#cfc1f7",
+          backgroundColor: "#B57EDC",
           marginBottom: 20,
           justifyContent: "center",
           alignItems: "center",
         }}
-      ><Text style={{ color: "black", fontSize: 24 }}>Add Photo</Text>
+      >
 
         <Text style={{ color: "white", fontSize: 24 }}>+</Text>
       </TouchableOpacity>
