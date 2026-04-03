@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { View, Text, TextInput, TouchableOpacity, Alert, Dimensions, ImageBackground,StyleSheet } from "react-native"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebaseConfig"
-import { useRouter } from "expo-router"
+import { useRouter, Stack } from "expo-router"
 
 const { width, height } = Dimensions.get("window");
 
@@ -21,8 +21,10 @@ const SignUp = () => {
     }
   }
   return (
+     <>
+    <Stack.Screen options={{ headerShown: false }} />
     <ImageBackground
-      source={require("../assets/pen.png")} // full screen bg
+      source={require("../assets/quillogo.png")} // full screen bg
       style={styles.background}
       resizeMode="cover"
     >
@@ -62,8 +64,10 @@ const SignUp = () => {
           </TouchableOpacity>
       </View>
     </ImageBackground>
-  );
-};
+  
+  </>
+  )
+}
 
 const styles = StyleSheet.create({
   background: {

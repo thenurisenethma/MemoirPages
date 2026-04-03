@@ -5,6 +5,7 @@ import { useRouter, useLocalSearchParams } from "expo-router"
 import { ActivityIndicator } from "react-native"
 import { auth } from "../../firebaseConfig"
 import { onAuthStateChanged } from "firebase/auth"
+import { Stack } from "expo-router"
 
 const { width } = Dimensions.get("window")
 
@@ -76,6 +77,8 @@ useEffect(() => {
   if (!memory) {
     return (
       <View className="flex-1 items-center justify-center bg-cream p-4">
+          <Stack.Screen options={{ headerShown: false }} />
+        
         <Text className="text-gray-500 text-lg">Memory not found</Text>
       </View>
     )
@@ -83,6 +86,8 @@ useEffect(() => {
 
   return (
     <View className="flex-1 bg-cream p-4">
+        <Stack.Screen options={{ headerShown: false }} />
+
       <Text style={{ fontSize: width * 0.05, fontWeight: "600", marginBottom: 10 }}>
         Edit Memory
       </Text>

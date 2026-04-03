@@ -4,10 +4,10 @@
     "slug": "MemoirPages",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/quillogo.png",
     "scheme": "memoirpages",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
@@ -30,18 +30,18 @@
         "android.permission.READ_MEDIA_AUDIO",
         "android.permission.READ_MEDIA_IMAGES"
       ],
-      "package": "com.thenuriexpo.MemoirPages"
+      "package": "com.thenuriexpo.memoirpages"
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/logo.png"
+      "favicon": "./assets/quillogo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/quillogo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#A78BFA",
@@ -69,7 +69,8 @@
             "photo"
           ]
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,

@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import { useRouter } from "expo-router"
 import { addMemory } from "./store/memoryStore"
-import { Memory } from "./types/memory"
+import { MaterialIcons } from "@expo/vector-icons"
 import { auth } from "../firebaseConfig"
 import { useLocalSearchParams } from "expo-router"
 import { useEffect } from "react"
@@ -61,20 +61,8 @@ const handleSave = async () => {
   return (
     <ScrollView
       className="flex-1 bg-cream p-4"
-      contentContainerStyle={{ paddingBottom: 50 }}
+      contentContainerStyle={{  margin: 10,paddingBottom: 50 }}
     >
-      {/* Screen Title */}
-      <Text
-        style={{
-          fontSize: width * 0.08,
-          fontWeight: "700",
-          color: "#B57EDC",
-          marginBottom: 20,
-        }}
-      >
-      </Text>
-{/*  Image Placeholder */}
-      <Text style={{ color: "#B57EDC", fontSize: 24 }}>Take Photo</Text>
 
       <TouchableOpacity
         onPress={() => router.push("../camera-test")} 
@@ -86,10 +74,11 @@ const handleSave = async () => {
           marginBottom: 20,
           justifyContent: "center",
           alignItems: "center",
+         
         }}
       >
-
-        <Text style={{ color: "white", fontSize: 24 }}>+</Text>
+        <MaterialIcons name="camera-alt" size={32} color="white" />
+         {/* <Text style={{ color: "white", fontSize: 24 }}>+</Text> */}
       </TouchableOpacity>
       {image && (
       <Image

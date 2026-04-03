@@ -3,6 +3,7 @@ import { View, Text, Dimensions, TouchableOpacity, Alert, Image, ScrollView } fr
 import { useRouter, useLocalSearchParams } from "expo-router"
 import { getMemories, deleteMemory } from "../store/memoryStore"
 import { Memory } from "../store/memoryStore"   
+import { Stack } from "expo-router"
 
 const { width } = Dimensions.get("window")
 
@@ -20,7 +21,7 @@ const MemoryView = () => {
 
     const loadMemory = async () => {
       try {
-        const memories = await getMemories()  // await the promise
+        const memories = await getMemories()  
         const mem = memories.find((m) => m.id === id)
         if (mem) setMemory(mem)
       } catch (e) {
@@ -62,26 +63,44 @@ const MemoryView = () => {
   }
 
   return (
-    <ScrollView className="flex-1 bg-cream p-4">
+      <ScrollView className="flex-1 bg-cream px-4 pt-10">
+            <Stack.Screen options={{ headerShown: false }} />
+
       {/* Title + More button */}
-      <View className="flex-row items-center justify-between mb-4">
-        <Text style={{ fontSize: width * 0.06, fontWeight: "700", flexShrink: 1 }}>
-          {memory.title}
+        <View className="flex-row items-start justify-between mb-2">
+        <Text
+          style={{
+            fontSize: width * 0.07,
+            fontWeight: "700",
+            flexShrink: 1,
+          }}
+        >          {memory.title}
         </Text>
         <TouchableOpacity onPress={() => handleMore(memory.id)}>
           <Text style={{ fontSize: 28 }}>⋯</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Date */}
-      <Text style={{ fontSize: width * 0.04, color: "#6B7280", marginBottom: 20 }}>
-        {memory.date}
-      </Text>
+            {/* Date */}
+        <Text style={{ fontSize: width * 0.04, color: "#6B7280", marginBottom: 10 }}>
+          {memory.date}
+        </Text>
 
-      {/* Content */}
-      <Text style={{ fontSize: width * 0.045, lineHeight: 28 }}>{memory.content}</Text>
+        <View
+          style={{
+            width: 60,
+            height: 4,
+            backgroundColor: "#C4B5FD",
+            borderRadius: 10,
+            marginBottom: 20,
+          }}
+    />
 
-      {/* Optional Image */}
+    {/* Content */}
+    <Text style={{ fontSize: width * 0.045, lineHeight: 28 }}>
+      {memory.content}
+    </Text>
+          {/* Optional Image */}
       {memory.image && (
         <Image
           source={{ uri: memory.image }}
